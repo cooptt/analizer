@@ -28,6 +28,10 @@ class Analizer {
         return this.catalogue;
     }
 
+    getCatalogueSize(){
+        return this.catalogue.length;
+    }
+
     addVideoGame(title, image){
         this.catalogue.push(new VideoGame(title,image) );
     }
@@ -92,6 +96,16 @@ class TreeNode{
 }
 
 
+var printBST = function(tree){
+    var it = tree.iterator();
+    var item;
+    while( (item=it.next()) !== null) {
+        console.log(item);
+    }
+    console.log("\n");
+}
+
+
 var lowerTreeNode = function(a,b) {
     return a.price - b.price;
 }
@@ -109,12 +123,15 @@ class VideoGame {
     }
 
     addSellOffer(offer){
+        //console.log("videogame addselloffer: ");
+        //console.log(offer);
         var node = new TreeNode(offer.price);
         var res = this.sellTree.find(node);
         if( res===null){
             this.sellTree.insert(node);
         }
         this.sellTree.find(node).addOffer(offer);
+        //console.log(this.sellTree);
 
     }
 
@@ -131,10 +148,10 @@ class VideoGame {
 
 class Offer {
     constructor(userId, videoGameId, price, type) {
-        this.type = type;  // 0: buy,  1: sell
-        this.price = price  // float
-        this.videoGameId = videoGameId;
         this.userId = userId;
+        this.videoGameId = videoGameId;
+        this.price = price  // float
+        this.type = type;  // 0: buy,  1: sell
     }
 }
 
@@ -192,28 +209,103 @@ var testOfferAddedToUsersLists = function() {
 
 
 
-var testOfferAddedToTrees = function(){
+var testOfferAddedToBuyTrees = function(){
     var analizer = new Analizer();
     analizer.loadCatalogue();
     analizer.addUser();
     analizer.addUser();
     analizer.addUser();
+    analizer.addUser();
+    analizer.addUser();
 
     analizer.addBuyOffer(0,0,300);
-    analizer.addBuyOffer(0,1,200);
-    analizer.addSellOffer(0,2,600);
-    analizer.addSellOffer(0,3,500);
+    analizer.addBuyOffer(1,0,700);
+    analizer.addBuyOffer(2,0,500);
+    analizer.addBuyOffer(3,0,700);
 
-    analizer.addBuyOffer(1,0,400);
+    analizer.addBuyOffer(0,1,200);
     analizer.addBuyOffer(1,1,100);
-    analizer.addSellOffer(1,2,300);
-    analizer.addSellOffer(1,2,700);
+    analizer.addBuyOffer(2,1,100);
+   
+    var prices =[ [300,500,700], [100,200] ];
+    var sizes = [ [1,1,2], [2,1] ];
+
+    var result = true;
+
+    for(var i=0; i<analizer.getCatalogueSize(); i++ ){
+        var it = analizer.getVideoGame(i).buyTree.iterator();
+        var node;
+        var mcount = 0;
+        while( (node=it.next()) !== null ){
+            if(node.price!=prices[i][mcount]){
+                result = false;
+                console.log("Prices differ, orignal:",prices[i][mcount],", found:",node.price);
+            }
+
+            if(node.offers.length !== sizes[i][mcount] ){
+                result = false;
+            }
+
+            mcount += 1;
+        }
+    }
+    console.log("testOfferAddedToBuyTrees : ", result);
+}
+
+var testOfferAddedToSellTrees = function(){
+    var analizer = new Analizer();
+    analizer.loadCatalogue();
+    analizer.addUser();
+    analizer.addUser();
+    analizer.addUser();
+    analizer.addUser();
+    analizer.addUser();
+
+    analizer.addSellOffer(0,0,300);
+    analizer.addSellOffer(1,0,700);
+    analizer.addSellOffer(2,0,500);
+    analizer.addSellOffer(3,0,700);
+
+    analizer.addSellOffer(0,1,200);
+    analizer.addSellOffer(1,1,100);
+    analizer.addSellOffer(2,1,100);
+   
+    var prices =[ [700,500,300], [200,100] ];
+    var sizes = [ [2,1,1], [1,2] ];
+
+    var result = true;
+
+    for(var i=0; i<analizer.getCatalogueSize(); i++ ){
+        var it = analizer.getVideoGame(i).sellTree.iterator();
+        var node;
+        var mcount = 0;
+        while( (node=it.next()) !== null ){
+            if(node.price!=prices[i][mcount]){
+                result = false;
+                console.log("Prices differ, orignal:",prices[i][mcount],", found:",node.price);
+            }
+
+            if(node.offers.length !== sizes[i][mcount] ){
+                result = false;
+            }
+
+            mcount += 1;
+        }
+    }
+    console.log("testOfferAddedToSellTrees : ", result);
 }
 
 
 
-testAddUsers();
-testOfferAddedToUsersLists();
+var runTests = function(){
+    testAddUsers();
+    testOfferAddedToUsersLists();
+    testOfferAddedToBuyTrees();
+    testOfferAddedToSellTrees();
+}
+
+
+runTests()
 
 
 
