@@ -10,11 +10,17 @@ const IdMap = analizerHelper.IdMap;
 class Analizer {
 
     constructor(){ 
+        this._BUY = 0;
+        this._SELL = 1;
         this._catalogue = [];
         this._users = new IdMap();
         this._offers = new IdMap();
     }
 
+
+    getOffer(offerId){
+        return this._offers.get(offerId);
+    }
 
     loadCatalogue(){
         this.addVideoGame("God of War", "god_of_war.jpg");
@@ -48,21 +54,44 @@ class Analizer {
     }
 
     addSellOffer(userId, videoGameId, price) {
-        var offer = new Offer(userId, videoGameId, price, 1);
+        var offer = new Offer(userId, videoGameId, price, this._SELL);
         var offerId = this._offers.insert(offer);
         this.getUser(userId).addSellOffer(offerId);
         this.getVideoGame(videoGameId).addSellOffer(offerId, price);
     }
 
     addBuyOffer(userId, videoGameId, price) {
-        var offer = new Offer(userId, videoGameId, price, 0);
+        var offer = new Offer(userId, videoGameId, price, this._BUY);
         var offerId = this._offers.insert(offer);
         this.getUser(userId).addBuyOffer(offerId);
         this.getVideoGame(videoGameId).addBuyOffer(offerId, price);
     }
 
-    deleteOffer(userId, offerId) {
-        this.getUser(userId).deleteOffer(offerId);
+    deleteOffer(offerId) {
+        var offer = this.getOffer(offerId);
+        this.getUser(offer.getUserId()).deleteOffer(offerId);
+        this.getVideoGame(offer.getVideoGameId()).deleteOffer(offerId, offer.getType(), offer.getPrice() );
+    }
+
+    createUserOffersList(offerIdList){
+        userOffersList = [];
+        for(var i=0;i<offerIdList.length;i++){
+            offer = this.getOffer(offerIdList[i]);
+            videoGame = this.getVideoGame(offer.getVideoGameId);
+            userOffersList.push({
+                offerId : offer.getOfferId(),
+                title : videoGame.getTitle(),
+                image : videoGame.getImage(),
+                price : offer.getPrice(),
+            });
+        }
+        return userOffersList;
+    }
+
+    getUserSellList(userId){
+        var user = this.getUser(userId);
+        sellList = user.getSellList();
+        return createUserOffersList(sellList);
     }
 
     deleteUser() {

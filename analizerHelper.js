@@ -95,6 +95,8 @@ var greaterTreeNode = function(a,b) {
 
 class VideoGame {
     constructor(title, image){
+        this.BUY = 0;
+        this.SELL = 1;
         this._title = title;
         this._image = image;
         this._buyTree = new RBTree( lowerTreeNode );        // Tree of TreeNode
@@ -123,9 +125,9 @@ class VideoGame {
     deleteOffer(offerId, type, price){
         var node = new TreeNode(price);
         var res = null;
-        if(type===0){ //Buy
+        if(type===this.BUY){ //Buy
             res = this._buyTree.find(node);
-        }else if (type===1){
+        }else if (type===this.SELL){
             res = this._selTree.find(node);
         }
         if( res!==null ){
@@ -141,6 +143,22 @@ class Offer {
         this._videoGameId = videoGameId;
         this._price = price  // float
         this._type = type;  // 0: buy,  1: sell
+    }
+
+    getUserId(){
+        return this._userId;
+    }
+
+    getVideoGameId(){
+        return this._videoGameId;
+    }
+
+    getPrice(){
+        return this._price;
+    }
+
+    getType(){
+        this._type;
     }
 }
 
