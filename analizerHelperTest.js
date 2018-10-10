@@ -44,13 +44,13 @@ class UserTest {
 		console.log("testAddBuyOffers : ",result);
 	}
 
-	testAllTests(){
+	runAllTests(){
+		console.log("UserTest started ...");
 		this.testAddSellOffers();
 		this.testAddBuyOffers();
+		console.log("UserTest ended ...\n")
 	}
 }
 
 
-userTest = new UserTest();
-
-userTest.testAllTests();
+exports.UserTest = UserTest;

@@ -92,6 +92,12 @@ class Analizer {
         return this._createUserOffersList(sellList);
     }
 
+    getUserBuyList(userId){
+        var user = this.getUser(userId);
+        var buyList = user.getBuyList();
+        return this._createUserOffersList(buyList);
+    }
+
     deleteUser() {
 
     }
