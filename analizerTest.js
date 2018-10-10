@@ -356,6 +356,55 @@ class AnalizerTest {
 			console.log("testGetUserBuyListWithDeletes :",result);
 	}
 
+	testGetCatalogue(){
+		var analizer = new Analizer();
+		analizer.addVideoGame("God of War", "god_of_war.jpg");
+	    analizer.addVideoGame("Halo", "halo.jpg");
+	    analizer.addVideoGame("Call of Duty", "call_of_duty.jpg");
+
+	    let originalCatalogue = [ 
+	    	{ title: 'God of War', image: 'god_of_war.jpg' },
+			{ title: 'Halo', image: 'halo.jpg' },
+			{ title: 'Call of Duty', image: 'call_of_duty.jpg' } ];
+
+
+	    let catalogue = analizer.getCatalogue();
+	    let result = true;
+
+	    if( JSON.stringify(originalCatalogue)!== JSON.stringify(catalogue) ){
+	    	result = false;
+	    	console.log("catalogue differs, ");
+	    	console.log("original :",originalCatalogue);
+	    	console.log("found :",catalogue);
+	    }
+
+	    if(result===false){
+	    	console.log("testGetCatalogue :",result);
+	    }
+	}
+
+
+	testEmptinessAtBeginning(){
+		let analizer = new Analizer();
+		let result = true;
+
+		if( analizer.getUsersSize()!==0 ){
+			result = false;
+		}
+
+		if (analizer.getCatalogueSize() !==0 ){
+			result = false;
+		}
+
+		if(analizer.getOffersSize() !==0 ){
+			result = false;
+		}
+
+		if( result===false ){
+			console.log("testEmptinessAtBeginning: ",result);
+		}
+	}
+
 
 	runAllTests() {
 		console.log("AnalizerTest started ...");
@@ -367,8 +416,11 @@ class AnalizerTest {
 	    this.testGetUserBuyList();
 	    this.testGetUserSellListWithDeletes();
 	    this.testGetUserBuyListWithDeletes();
+	    this.testGetCatalogue();
+	    this.testEmptinessAtBeginning();
 	    console.log("AnalizerTest ended ...\n");
 	}
+
 
 }
 

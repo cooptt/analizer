@@ -1,35 +1,34 @@
 
 
 const analizerHelper = require("./analizerHelper");
+const utils = require("./utils");
 const User = analizerHelper.User;
 const TreeNode = analizerHelper.TreeNode;
 const VideoGame = analizerHelper.VideoGame;
 const Offer = analizerHelper.Offer;
-const IdMap = analizerHelper.IdMap;
+const IdMap = utils.IdMap;
 
 class Analizer {
 
     constructor(){ 
         this._BUY = 0;
         this._SELL = 1;
-        this._catalogue = [];
+        this._catalogue = new IdMap();
         this._users = new IdMap();
         this._offers = new IdMap();
+        this._loginServiceMap = new Map();
     }
 
+    loginServiceIdToUserid(loginServiceId){
+        return this._loginServiceMap.get(loginServiceId);
+    }
 
     getOffer(offerId){
         return this._offers.get(offerId);
     }
 
-    loadCatalogue(){
-        this.addVideoGame("God of War", "god_of_war.jpg");
-        this.addVideoGame("Halo", "halo.jpg");
-        this.addVideoGame("Call of Duty", "call_of_duty.jpg");
-        this.addVideoGame("Crash Bandicoot", "crass_bandicoot.jpg");
-    }
-
     addUser(loginServiceId) {
+        this._loginServiceMap.set(loginServiceId, this._users.nextId() );
         this._users.insert( new User(this._users.nextId(), loginServiceId ) );
     }
 
@@ -37,20 +36,40 @@ class Analizer {
         return this._users.get(userId);
     }
 
+    getUsersSize(){
+        return this._users.size();
+    }
+
+    getOffersSize(){
+        return this._offers.size();
+    }
+
+    getUserData(userId){
+
+    }
+
     getCatalogue() {
-        return this._catalogue;
+        let catalogue = [];
+        for(let i=0;i<this.getCatalogueSize();i++){
+            let videoGame = this.getVideoGame(i);
+            catalogue.push({
+                title:videoGame.getTitle(),
+                image:videoGame.getImage()
+            });
+        }
+        return catalogue;
     }
 
     getCatalogueSize(){
-        return this._catalogue.length;
+        return this._catalogue.size();
     }
 
     addVideoGame(title, image){
-        this._catalogue.push(new VideoGame(title,image) );
+        this._catalogue.insert(new VideoGame(this._catalogue.nextId(), title, image) );
     }
 
     getVideoGame(videoGameId) {
-        return this._catalogue[videoGameId];
+        return this._catalogue.get(videoGameId);
     }
 
     addSellOffer(userId, videoGameId, price) {

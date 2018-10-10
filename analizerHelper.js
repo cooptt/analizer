@@ -1,37 +1,9 @@
-var RBTree = require('bintrees').RBTree;
+const RBTree = require('bintrees').RBTree;
+const utils = require('./utils');
+const IdMap = utils.IdMap;
 
 
-class IdMap {
 
-    constructor(){
-        this._idcount = 0;
-        this._map = new Map();
-    }
-
-    insert(item){
-        this._map.set(this._idcount, item);
-        this._idcount++;
-        return this._idcount-1;
-    }
-
-    get(id){
-        return this._map.get(id);
-    }
-
-    remove(id){
-        var r = this._map.get(id);
-        this._map.delete(id);
-        return r;
-    }
-
-    nextId(){
-        return this._idcount;
-    }
-
-    size(){
-        return this._map.size;
-    }
-}
 
 class User {
     constructor(userId, loginServiceId) {
@@ -103,9 +75,10 @@ var greaterTreeNode = function(a,b) {
 }
 
 class VideoGame {
-    constructor(title, image){
+    constructor(videoGameId, title, image){
         this.BUY = 0;
         this.SELL = 1;
+        this._videoGameId = videoGameId;
         this._title = title;
         this._image = image;
         this._buyTree = new RBTree( lowerTreeNode );        // Tree of TreeNode
