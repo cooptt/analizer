@@ -52,6 +52,14 @@ class User {
         this._sellList.delete(offerId);
         this._buyList.delete(offerId);
     }
+
+    getSellList(){
+        return Array.from(this._sellList);
+    }
+
+    getBuyList(){
+        return Array.from(this._buyList);
+    }
 }
 
 
@@ -103,6 +111,22 @@ class VideoGame {
         this._sellTree = new RBTree( greaterTreeNode );     // Tree of TreeNode
     }
 
+    getTitle(){
+        return this._title;
+    }
+
+    getImage(){
+        return this._image;
+    }
+
+    getBuyTree(){
+        return this._buyTree;
+    }
+
+    getSellTree(){
+        return this._selTree;
+    }
+
     addSellOffer(offerId, price){
         var node = new TreeNode(price);
         var res = this._sellTree.find(node);
@@ -138,11 +162,16 @@ class VideoGame {
 
 
 class Offer {
-    constructor(userId, videoGameId, price, type) {
+    constructor(offerId, userId, videoGameId, price, type) {
+        this._offerId = offerId;
         this._userId = userId;
         this._videoGameId = videoGameId;
         this._price = price  // float
         this._type = type;  // 0: buy,  1: sell
+    }
+
+    getOfferId(){
+        return this._offerId;
     }
 
     getUserId(){

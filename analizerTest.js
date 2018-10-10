@@ -87,7 +87,7 @@ var testOfferAddedToBuyTrees = function(){
         while( (node=it.next()) !== null ){
             if(node._price!=prices[i][mcount]){
                 result = false;
-                console.log("Prices differ, orignal:",prices[i][mcount],", found:",node._price);
+                console.log("Prices differ, original:",prices[i][mcount],", found:",node._price);
             }
 
             if(node._offers.size !== sizes[i][mcount] ){
@@ -130,7 +130,7 @@ var testOfferAddedToSellTrees = function(){
         while( (node=it.next()) !== null ){
             if(node._price!=prices[i][mcount]){
                 result = false;
-                console.log("Prices differ, orignal:",prices[i][mcount],", found:",node._price);
+                console.log("Prices differ, original:",prices[i][mcount],", found:",node._price);
             }
 
             if(node._offers.size !== sizes[i][mcount] ){
@@ -145,15 +145,59 @@ var testOfferAddedToSellTrees = function(){
 
 
 
-var runTests = function(){
+
+
+var testGetUserSellList = function(){
+	var analizer = new Analizer();
+	analizer.addVideoGame("God of War", "god_of_war.jpg");
+    analizer.addVideoGame("Halo", "halo.jpg");
+    //analizer.addVideoGame("Call of Duty", "call_of_duty.jpg");
+	
+	analizer.addUser();
+
+	analizer.addSellOffer(0,0,300);
+	analizer.addSellOffer(0,1,500);
+	var userSellList = analizer.getUserSellList(0);
+
+	var originaUserSellList = [
+		{
+			offerId:0,
+			title:"God of War",
+			image:"god_of_war.jpg",
+			price:300 },
+		{
+			offerId:1,
+			title:"Halo",
+			image:"halo.jpg",
+			price:500 }
+	]
+
+	var result = true;
+
+	if( originaUserSellList !== userSellList ){
+		result = false;
+		console.log("Sell List differ ");
+		console.log("originaUserSellList : ", originaUserSellList);
+		console.log("found: ",userSellList);
+	}
+
+	console.log("testGetUserSellList :",result);
+}
+
+
+
+var runAllTests = function(){
 	//basicTest();
     testAddUsers();
     testOfferAddedToUsersLists();
     testOfferAddedToBuyTrees();
     testOfferAddedToSellTrees();
+    testGetUserSellList();
 }
 
 
 
 
-runTests();
+runAllTests();
+
+

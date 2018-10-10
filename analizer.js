@@ -54,15 +54,13 @@ class Analizer {
     }
 
     addSellOffer(userId, videoGameId, price) {
-        var offer = new Offer(userId, videoGameId, price, this._SELL);
-        var offerId = this._offers.insert(offer);
+        var offerId = this._offers.insert( new Offer(this._offers.nextId(), userId, videoGameId, price, this._SELL) );
         this.getUser(userId).addSellOffer(offerId);
         this.getVideoGame(videoGameId).addSellOffer(offerId, price);
     }
 
     addBuyOffer(userId, videoGameId, price) {
-        var offer = new Offer(userId, videoGameId, price, this._BUY);
-        var offerId = this._offers.insert(offer);
+        var offerId = this._offers.insert( new Offer(this._offers.nextId(), userId, videoGameId, price, this._BUY) );
         this.getUser(userId).addBuyOffer(offerId);
         this.getVideoGame(videoGameId).addBuyOffer(offerId, price);
     }
@@ -73,11 +71,11 @@ class Analizer {
         this.getVideoGame(offer.getVideoGameId()).deleteOffer(offerId, offer.getType(), offer.getPrice() );
     }
 
-    createUserOffersList(offerIdList){
-        userOffersList = [];
+    _createUserOffersList(offerIdList){
+        var userOffersList = [];
         for(var i=0;i<offerIdList.length;i++){
-            offer = this.getOffer(offerIdList[i]);
-            videoGame = this.getVideoGame(offer.getVideoGameId);
+            var offer = this.getOffer(offerIdList[i]);
+            var videoGame = this.getVideoGame(offer.getVideoGameId());
             userOffersList.push({
                 offerId : offer.getOfferId(),
                 title : videoGame.getTitle(),
@@ -90,8 +88,8 @@ class Analizer {
 
     getUserSellList(userId){
         var user = this.getUser(userId);
-        sellList = user.getSellList();
-        return createUserOffersList(sellList);
+        var sellList = user.getSellList();
+        return this._createUserOffersList(sellList);
     }
 
     deleteUser() {
