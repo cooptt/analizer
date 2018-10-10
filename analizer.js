@@ -10,6 +10,9 @@ const IdMap = utils.IdMap;
 
 class Analizer {
 
+
+
+
     constructor(){ 
         this._BUY = 0;
         this._SELL = 1;
@@ -19,21 +22,12 @@ class Analizer {
         this._loginServiceMap = new Map();
     }
 
-    loginServiceIdToUserid(loginServiceId){
+    // PUBLIC FUNCTIONS
+
+    // Get data functions
+
+    getUserIdFromLoginServiceId(loginServiceId){
         return this._loginServiceMap.get(loginServiceId);
-    }
-
-    getOffer(offerId){
-        return this._offers.get(offerId);
-    }
-
-    addUser(loginServiceId) {
-        this._loginServiceMap.set(loginServiceId, this._users.nextId() );
-        this._users.insert( new User(this._users.nextId(), loginServiceId ) );
-    }
-
-    getUser(userId) {
-        return this._users.get(userId);
     }
 
     getUsersSize(){
@@ -42,6 +36,10 @@ class Analizer {
 
     getOffersSize(){
         return this._offers.size();
+    }
+
+    getCatalogueSize(){
+        return this._catalogue.size();
     }
 
     getUserData(userId){
@@ -60,16 +58,29 @@ class Analizer {
         return catalogue;
     }
 
-    getCatalogueSize(){
-        return this._catalogue.size();
+    getUserSellList(userId){
+        var user = this.getUser(userId);
+        var sellList = user.getSellList();
+        return this._createUserOffersList(sellList);
     }
 
-    addVideoGame(title, image){
-        this._catalogue.insert(new VideoGame(this._catalogue.nextId(), title, image) );
+    getUserBuyList(userId){
+        var user = this.getUser(userId);
+        var buyList = user.getBuyList();
+        return this._createUserOffersList(buyList);
     }
 
-    getVideoGame(videoGameId) {
-        return this._catalogue.get(videoGameId);
+
+
+    // Update functions
+
+    addUser(loginServiceId) {
+        this._loginServiceMap.set(loginServiceId, this._users.nextId() );
+        this._users.insert( new User(this._users.nextId(), loginServiceId ) );
+    }
+
+    deleteUser() {
+
     }
 
     addSellOffer(userId, videoGameId, price) {
@@ -90,6 +101,34 @@ class Analizer {
         this.getVideoGame(offer.getVideoGameId()).deleteOffer(offerId, offer.getType(), offer.getPrice() );
     }
 
+    
+
+    
+
+
+
+
+    // PRIVATE FUNCTIONS
+
+
+    getOffer(offerId){
+        return this._offers.get(offerId);
+    }
+
+
+    getUser(userId) {
+        return this._users.get(userId);
+    }
+    
+    getVideoGame(videoGameId) {
+        return this._catalogue.get(videoGameId);
+    }
+
+    addVideoGame(title, image){
+        this._catalogue.insert(new VideoGame(this._catalogue.nextId(), title, image) );
+    }
+
+
     _createUserOffersList(offerIdList){
         var userOffersList = [];
         for(var i=0;i<offerIdList.length;i++){
@@ -105,21 +144,6 @@ class Analizer {
         return userOffersList;
     }
 
-    getUserSellList(userId){
-        var user = this.getUser(userId);
-        var sellList = user.getSellList();
-        return this._createUserOffersList(sellList);
-    }
-
-    getUserBuyList(userId){
-        var user = this.getUser(userId);
-        var buyList = user.getBuyList();
-        return this._createUserOffersList(buyList);
-    }
-
-    deleteUser() {
-
-    }
  
 }
 
