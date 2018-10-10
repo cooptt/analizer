@@ -25,12 +25,18 @@ class AnalizerTest {
 	        result = false;
 	        console.log("size differ, original: ",5, " , found: ", analizer._users.size() );
 	    }
-	    console.log("testAddUsers: ",result);
+	    if(result===false)
+	    	console.log("testAddUsers: ",result);
 	}
 
 	testOfferAddedToUsersLists() {
 	    var analizer = new Analizer();
-	    analizer.loadCatalogue();
+	    
+	    analizer.addVideoGame("God of War", "god_of_war.jpg");
+        analizer.addVideoGame("Halo", "halo.jpg");
+        analizer.addVideoGame("Call of Duty", "call_of_duty.jpg");
+        analizer.addVideoGame("Crash Bandicoot", "crass_bandicoot.jpg");
+
 	    analizer.addUser();
 	    analizer.addBuyOffer(0,0,17);
 	    analizer.addBuyOffer(0,1,18);
@@ -48,13 +54,19 @@ class AnalizerTest {
 	        result = false;
 	    }
 
-	    console.log("testOfferAddedToUsersLists: ",result);
+	    if(result===false)
+	    	console.log("testOfferAddedToUsersLists: ",result);
 
 	}
 
 	testOfferAddedToBuyTrees () {
 	    var analizer = new Analizer();
-	    analizer.loadCatalogue();
+	    
+	    analizer.addVideoGame("God of War", "god_of_war.jpg");
+        analizer.addVideoGame("Halo", "halo.jpg");
+        analizer.addVideoGame("Call of Duty", "call_of_duty.jpg");
+        analizer.addVideoGame("Crash Bandicoot", "crass_bandicoot.jpg");
+
 	    analizer.addUser();
 	    analizer.addUser();
 	    analizer.addUser();
@@ -92,12 +104,18 @@ class AnalizerTest {
 	            mcount += 1;
 	        }
 	    }
-	    console.log("testOfferAddedToBuyTrees : ", result);
+	    if(result===false)
+	    	console.log("testOfferAddedToBuyTrees : ", result);
 	}
 
 	testOfferAddedToSellTrees() {
 	    var analizer = new Analizer();
-	    analizer.loadCatalogue();
+	    
+	    analizer.addVideoGame("God of War", "god_of_war.jpg");
+        analizer.addVideoGame("Halo", "halo.jpg");
+        analizer.addVideoGame("Call of Duty", "call_of_duty.jpg");
+        analizer.addVideoGame("Crash Bandicoot", "crass_bandicoot.jpg");
+
 	    analizer.addUser();
 	    analizer.addUser();
 	    analizer.addUser();
@@ -135,7 +153,9 @@ class AnalizerTest {
 	            mcount += 1;
 	        }
 	    }
-	    console.log("testOfferAddedToSellTrees : ", result);
+
+	    if(result===false)
+	    	console.log("testOfferAddedToSellTrees : ", result);
 	}
 
 	testGetUserSellList() {
@@ -181,7 +201,8 @@ class AnalizerTest {
 			console.log("found: ",userSellList);
 		}
 
-		console.log("testGetUserSellList :",result);
+		if(result===false)
+			console.log("testGetUserSellList :",result);
 	}
 
 
@@ -228,7 +249,8 @@ class AnalizerTest {
 			console.log("found: ",userBuyList);
 		}
 
-		console.log("testGetUserBuyList :",result);
+		if(result===false)
+			console.log("testGetUserBuyList :",result);
 	}
 
 
@@ -279,7 +301,8 @@ class AnalizerTest {
 			console.log("found: ",userSellList);
 		}
 
-		console.log("testGetUserSellListWithDeletes :",result);
+		if(result===false)
+			console.log("testGetUserSellListWithDeletes :",result);
 	}
 
 	testGetUserBuyListWithDeletes() {
@@ -329,7 +352,8 @@ class AnalizerTest {
 			console.log("found: ",userBuyList);
 		}
 
-		console.log("testGetUserBuyListWithDeletes :",result);
+		if(result===false)
+			console.log("testGetUserBuyListWithDeletes :",result);
 	}
 
 

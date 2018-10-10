@@ -9,7 +9,7 @@ const compareSets = utils.compareSets;
 class UserTest {
 
 	testAddSellOffers(){
-		var user = new User(0);
+		var user = new User(/*userId*/0,/*firebaseId*/0);
 		var offerIds = [5,2,7,5,9];
 		for(var i=0;i<offerIds.length;i++){
 			user.addSellOffer(offerIds[i]);
@@ -23,11 +23,13 @@ class UserTest {
 			result = false;
 			console.log("Lists differ, original:",offerIds," , found:",sellList);
 		}
-		console.log("testAddSellOffers : ",result);
+
+		if(result===false)
+			console.log("testAddSellOffers : ",result);
 	}
 
 	testAddBuyOffers(){
-		var user = new User(0);
+		var user = new User(/*userId*/0,/*firebaseId*/0);
 		var offerIds = [5,2,7,5,9];
 		for(var i=0;i<offerIds.length;i++){
 			user.addBuyOffer(offerIds[i]);
@@ -41,7 +43,9 @@ class UserTest {
 			result = false;
 			console.log("Lists differ, original:",offerIds," , found:",sellList);
 		}
-		console.log("testAddBuyOffers : ",result);
+
+		if(result===false)
+			console.log("testAddBuyOffers : ",result);
 	}
 
 	runAllTests(){

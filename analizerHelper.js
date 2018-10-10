@@ -34,8 +34,9 @@ class IdMap {
 }
 
 class User {
-    constructor(userId) {
-        this._id = userId;
+    constructor(userId, loginServiceId) {
+        this._userId = userId;
+        this._loginServiceId = loginServiceId;
         this._sellList = new Set(); // OfferIds
         this._buyList = new Set();  // OfferIds
     }

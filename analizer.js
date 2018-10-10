@@ -29,8 +29,8 @@ class Analizer {
         this.addVideoGame("Crash Bandicoot", "crass_bandicoot.jpg");
     }
 
-    addUser() {
-        this._users.insert( new User(this._users.nextId()) );
+    addUser(loginServiceId) {
+        this._users.insert( new User(this._users.nextId(), loginServiceId ) );
     }
 
     getUser(userId) {
