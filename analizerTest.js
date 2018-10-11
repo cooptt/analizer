@@ -517,5 +517,3 @@ let startTest = function(){
 	analizerTest.runAllTests();
 }
 
-
-startTest();
