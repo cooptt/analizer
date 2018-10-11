@@ -433,6 +433,52 @@ class AnalizerTest {
 		}
 	}
 
+	testLoadCatalogue(){
+		
+		let analizerResult = new Analizer();
+
+		analizerResult.addVideoGame("animal crossing eds juego compra disponible","3DS/animal_crossing_eds_juego_compra_disponible.png");
+		analizerResult.addVideoGame("fifa soccer 2016 u.e ps3 -","PS3/fifa_soccer_2016_u.e_ps3_-.png");
+		analizerResult.addVideoGame("","PS4/.png");
+		analizerResult.addVideoGame("crash bandicoot n. sane trilogy","SWITCH/crash_bandicoot_n._sane_trilogy.png");
+		analizerResult.addVideoGame("angry birds trilogy -","WiiU/angry_birds_trilogy_-.png");
+		analizerResult.addVideoGame("far cry","XBOX360/far_cry.png");
+		analizerResult.addVideoGame("assassins creed odyssey gold edition","XBOXONE/assassins_creed_odyssey_gold_edition.png");
+
+		analizerResult._catalogue.sort(function(a, b) {
+  			return a.getTitle() > b.getTitle();
+		});
+
+		let analizerTest = new Analizer();
+
+		analizerTest.loadCatalogueFromFolders("catalogue/");
+
+		setTimeout(
+			function() {
+
+				if(analizerResult.getCatalogueSize() !== analizerTest.getCatalogueSize()){
+					console.log("testLoadCatalogue : Different sizes", false);
+					return;
+				}
+
+				analizerTest._catalogue.sort(function(a, b) {
+  					return a.getTitle() > b.getTitle();
+				});
+
+				for(let i = 0; i < analizerResult.getCatalogueSize(); i++){
+					let gameA = analizerResult._catalogue[i];
+					let gameB = analizerTest._catalogue[i];
+
+					if(gameA._title !== gameB._title || gameA._image !== gameB._image){
+						console.log("testLoadCatalogue : Different games", false);
+						return;
+					}
+				}
+
+				console.log("testLoadCatalogue :", true);
+
+			}, 1000);
+	}
 
 	runAllTests() {
 		console.log("AnalizerTest started ...");
@@ -446,14 +492,17 @@ class AnalizerTest {
 	    this.testGetUserBuyListWithDeletes();
 	    this.testGetCatalogue();
 	    this.testEmptinessAtBeginning();
-	    this.testGetUserData();
-	    console.log("AnalizerTest ended ...\n");
+	    this.testGetUserData();		
+	    this.testLoadCatalogue();	
+
+	    setTimeout(function() {
+    			console.log("AnalizerTest ended ...\n")
+		}
+	    , 2000);
 	}
 
 
 }
-
-
 
 var startTest = function(){
 	var userTest = new UserTest();

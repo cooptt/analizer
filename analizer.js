@@ -153,6 +153,32 @@ class Analizer {
         return userOffersList;
     }
 
+    loadCatalogueFromFolders(cataloguePath) {
+        const fs = require('fs');
+
+        fs.readdir(cataloguePath, (err, consoleFolders) => {
+            consoleFolders.forEach(consoleFolder => {
+
+                let consolePath = cataloguePath + '/' + consoleFolder;
+
+                fs.readdir(consolePath, (err, imagesNames) => {
+                    imagesNames.forEach(imageName => {
+                       
+
+                        let videoGamePath = consoleFolder + '/' + imageName;
+
+                        let videoGameName = imageName.replace(/_/g, ' ').slice(0, imageName.length - 4);
+
+                        this.addVideoGame(videoGameName, videoGamePath);
+                    });
+                })
+
+            });
+        });
+
+        return;
+    }
+
  
 }
 
