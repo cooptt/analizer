@@ -2,12 +2,14 @@
 create table  User (
 userId int not null,
 loginServiceId int not null,
-firstName varchar(45) not null,
-lastNames varchar(45),
+firstName varchar(45),
+lastName varchar(45),
+email varchar(60),
 country varchar(45),
 city varchar(45),
-calificacion float,
-primary key (userId);
+punctuation float,
+primary key (userId)
+);
 
 
 create table VideoGame (
@@ -26,4 +28,5 @@ price float,
 primary key(offerId),
 foreign key(videoGameId) references VideoGame(videoGameId) on update cascade on delete cascade,
 foreign key (userId) references User(userId) on update cascade on delete cascade
+
 );

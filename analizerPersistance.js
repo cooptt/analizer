@@ -1,8 +1,29 @@
 
+const mysql = require('mysql');
 
 
-class AnalizerPersitance {
+class AnalizerPersistance {
     
+    connect(host,user,password,database){
+    	this._db = mysql.createConnection({
+    		host:host,
+    		user:user,
+    		password:password,
+    		database:database
+    	});
+
+    	this._db.connect( function(err) {
+    		if (err){
+    			throw err;
+    		}
+
+    		console.log("connected...");
+    		console.log(this._db );
+    	});
+
+
+
+    }
 
     addUser(properties){
 
@@ -54,3 +75,7 @@ class AnalizerPersitance {
 
 
 }
+
+
+
+exports.AnalizerPersistance = AnalizerPersistance;

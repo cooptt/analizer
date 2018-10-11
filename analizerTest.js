@@ -1,10 +1,13 @@
 
 
 const Analizer = require("./analizer").Analizer;
-const analizerHelperTest = require("./analizerHelperTest")
+const analizerHelperTest = require("./analizerHelperTest");
+const analizerPersistanceTest = require('./analizerPersistanceTest');
+const AnalizerPersistanceTest = analizerPersistanceTest.AnalizerPersistanceTest;
 const UserTest = analizerHelperTest.UserTest;
 const VideoGameTest = analizerHelperTest.VideoGameTest;
 const OfferTest = analizerHelperTest.OfferTest; 
+
 
 
 class AnalizerTest {
@@ -477,7 +480,8 @@ class AnalizerTest {
 					}
 				}
 
-				console.log("testLoadCatalogue :", true);
+
+				//console.log("testLoadCatalogue :", true);
 
 			}, 1000);
 	}
@@ -509,12 +513,16 @@ class AnalizerTest {
 let startTest = function(){
 	let userTest = new UserTest();
 	let videoGameTest = new VideoGameTest();
-	let analizerTest = new AnalizerTest();
 	let offerTest = new OfferTest();
+	let analizerPersistanceTest = new AnalizerPersistanceTest();
+	let analizerTest = new AnalizerTest();
+
 
 	userTest.runAllTests();
 	videoGameTest.runAllTests();
 	offerTest.runAllTests();
+	analizerPersistanceTest.runAllTests();
 	analizerTest.runAllTests();
 }
 
+startTest();
