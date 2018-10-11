@@ -446,8 +446,8 @@ class AnalizerTest {
 		analizerResult.addVideoGame("far cry","XBOX360/far_cry.png");
 		analizerResult.addVideoGame("assassins creed odyssey gold edition","XBOXONE/assassins_creed_odyssey_gold_edition.png");
 
-		analizerResult._catalogue.sort(function(a, b) {
-  			return a.getTitle() > b.getTitle();
+		let correctAnswer = Array.from(analizerResult._catalogue._map.values()).sort(function(a, b){
+			return a.getTitle() > b.getTitle();
 		});
 
 		let analizerTest = new Analizer();
@@ -462,13 +462,14 @@ class AnalizerTest {
 					return;
 				}
 
-				analizerTest._catalogue.sort(function(a, b) {
-  					return a.getTitle() > b.getTitle();
+				let testAnswer = Array.from(analizerTest._catalogue._map.values()).sort(function(a, b){
+					return a.getTitle() > b.getTitle();
 				});
 
+
 				for(let i = 0; i < analizerResult.getCatalogueSize(); i++){
-					let gameA = analizerResult._catalogue[i];
-					let gameB = analizerTest._catalogue[i];
+					let gameA = correctAnswer[i];
+					let gameB = testAnswer[i];
 
 					if(gameA._title !== gameB._title || gameA._image !== gameB._image){
 						console.log("testLoadCatalogue : Different games", false);
