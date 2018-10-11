@@ -173,7 +173,6 @@ class AnalizerPersitance {
 
     }
 
-
     updateUser(properties){
 
     }
@@ -193,11 +192,6 @@ class AnalizerPersitance {
     deleteOffer(offerId){
 
     }
-
-
-
-
-
 
 
 }

@@ -9,6 +9,9 @@ class User {
     constructor(userId, loginServiceId) {
         this._userId = userId;
         this._loginServiceId = loginServiceId;
+        this._firstName = null;
+        this._lastName = null;
+        this._email = null;
         this._sellList = new Set(); // OfferIds
         this._buyList = new Set();  // OfferIds
     }
@@ -22,7 +25,13 @@ class User {
     }
 
     getProperties(){
-
+        return {
+            userId:this._userId,
+            loginServiceId:this._loginServiceId,
+            firstName:this._firstName,
+            lastName:this._lastName,
+            email:this._lastName
+        }
     }
 
     getSellList(){
@@ -120,7 +129,11 @@ class VideoGame {
     }
 
     getProperties(){
-
+        return {
+            videoGameId:this._videoGameId,
+            title:this._title,
+            image:this._image
+        }
     }
 
     addSellOffer(offerId, price){
@@ -191,7 +204,13 @@ class Offer {
     }
 
     getProperties(){
-
+        return  {
+            offerId:this._offerId,
+            userId:this._userId,
+            videoGameId:this._videoGameId,
+            price:this._price,
+            type:this._type
+        }
     }
 
     updateProperties(properties){

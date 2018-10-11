@@ -1,7 +1,10 @@
 
 
-var Analizer = require("./analizer").Analizer;
-var UserTest = require("./analizerHelperTest").UserTest;
+const  Analizer = require("./analizer").Analizer;
+const  analizerHelperTest = require("./analizerHelperTest")
+const  UserTest = analizerHelperTest.UserTest;
+const  VideoGameTest = analizerHelperTest.VideoGameTest;
+
 
 class AnalizerTest {
 
@@ -454,9 +457,11 @@ class AnalizerTest {
 
 var startTest = function(){
 	var userTest = new UserTest();
+	var videoGameTest = new VideoGameTest();
 	var analizerTest = new AnalizerTest();
 
 	userTest.runAllTests();
+	videoGameTest.runAllTests();
 	analizerTest.runAllTests();
 }
 

@@ -48,5 +48,62 @@ function compareSets(a,b){
 	return true;
 } 
 
+function equalObjects(a, b, propertyNames){
+	for(let i=0;i<propertyNames.length;i++){
+		let propertyName = propertyNames[i];
+
+		if( (propertyName in a)=== false ){
+			return false;
+		}
+
+		if( (propertyName in b)=== false ){
+			return false;
+		}
+
+		if( a[propertyName] !== b[propertyName] ){
+			return false;
+		}
+
+	}
+
+	return true;
+
+
+}
+
+function testEqualObjects(){
+	let a = {hola:6, felipe:"jijo"};
+	let b = {hola:6, felipe:"jijo"};
+	let c = ["hola","felipe"];
+	console.log(equalObjects(a,b,c));
+
+	a = {hola:6, felipe:"jijo"};
+	b = {hola:6, felipe:"jijos"};
+	c = ["hola","felipe"];
+	console.log(equalObjects(a,b,c));
+
+	a = {hola:6, felipe:"jijo"};
+	b = {felipe:"jijo", hola:6 };
+	c = ["hola","felipe"];
+	console.log(equalObjects(a,b,c));
+
+	a = {hola:6, felipe:"jijo"};
+	b = {felipe:"jijo", hola:6, james:"jimbo" };
+	c = ["hola","felipe","jimbo"];
+	console.log(equalObjects(a,b,c));
+
+	a = {hola:6, felipe:"jijo"};
+	b = {felipe:"jijo", hola:6, james:"jimbo" };
+	c = ["hola","felipe","jimbos"];
+	console.log(equalObjects(a,b,c));
+
+}
+
+
+
 exports.IdMap = IdMap;
 exports.compareSets = compareSets;
+exports.equalObjects = equalObjects;
+
+
+

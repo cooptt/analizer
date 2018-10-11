@@ -11,7 +11,7 @@ primary key (userId);
 
 
 create table VideoGame (
-videoGameId int not null auto_increment,
+videoGameId int not null,
 title varchar(45),
 image varchar(80),
 primary key (videoGameId)
