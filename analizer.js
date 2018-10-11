@@ -10,9 +10,6 @@ const IdMap = utils.IdMap;
 
 class Analizer {
 
-
-
-
     constructor(){ 
         this._BUY = 0;
         this._SELL = 1;
@@ -43,7 +40,11 @@ class Analizer {
     }
 
     getUserData(userId){
-
+        let user = this.getUser(userId);
+        return {
+            userId:user.getUserId(),
+            loginServiceId:user.getLoginServiceId()
+        }
     }
 
     getCatalogue() {
@@ -72,15 +73,11 @@ class Analizer {
 
 
 
-    // Update functions
+    // Add, Update, Delete functions
 
     addUser(loginServiceId) {
         this._loginServiceMap.set(loginServiceId, this._users.nextId() );
         this._users.insert( new User(this._users.nextId(), loginServiceId ) );
-    }
-
-    deleteUser() {
-
     }
 
     addSellOffer(userId, videoGameId, price) {
@@ -93,6 +90,18 @@ class Analizer {
         var offerId = this._offers.insert( new Offer(this._offers.nextId(), userId, videoGameId, price, this._BUY) );
         this.getUser(userId).addBuyOffer(offerId);
         this.getVideoGame(videoGameId).addBuyOffer(offerId, price);
+    }
+
+    updateUser(userId, properties){
+
+    }
+
+    updateOffer(offerId, properties){
+
+    }
+
+    deleteUser() {
+
     }
 
     deleteOffer(offerId) {
@@ -145,6 +154,52 @@ class Analizer {
     }
 
  
+}
+
+
+
+class AnalizerPersitance {
+    
+
+    addUser(properties){
+
+    }
+
+    addVideoGame(properties){
+
+    }
+
+    addOffer(properties){
+
+    }
+
+
+    updateUser(properties){
+
+    }
+
+    updateOffer(properties){
+
+    }
+
+    deleteUser(userId){
+
+    }
+
+    deleteVideoGame(videoGameId){
+
+    }
+
+    deleteOffer(offerId){
+
+    }
+
+
+
+
+
+
+
 }
 
 

@@ -13,17 +13,16 @@ class User {
         this._buyList = new Set();  // OfferIds
     }
 
-    addSellOffer(offerId){
-        this._sellList.add(offerId);
+    getUserId(){
+        return this._userId;
     }
 
-    addBuyOffer(offerId){
-        this._buyList.add(offerId);
+    getLoginServiceId(){
+        return this._loginServiceId;
     }
 
-    deleteOffer(offerId){
-        this._sellList.delete(offerId);
-        this._buyList.delete(offerId);
+    getProperties(){
+
     }
 
     getSellList(){
@@ -33,6 +32,25 @@ class User {
     getBuyList(){
         return Array.from(this._buyList);
     }
+
+    addSellOffer(offerId){
+        this._sellList.add(offerId);
+    }
+
+    addBuyOffer(offerId){
+        this._buyList.add(offerId);
+    }
+
+    updateProperties(properties){
+
+    }
+
+    deleteOffer(offerId){
+        this._sellList.delete(offerId);
+        this._buyList.delete(offerId);
+    }
+
+    
 }
 
 
@@ -101,6 +119,10 @@ class VideoGame {
         return this._selTree;
     }
 
+    getProperties(){
+
+    }
+
     addSellOffer(offerId, price){
         var node = new TreeNode(price);
         var res = this._sellTree.find(node);
@@ -118,6 +140,10 @@ class VideoGame {
             this._buyTree.insert(node);
         }
         this._buyTree.find(node).addOffer(offerId);
+    }
+
+    updateProperties(properties){
+        
     }
 
     deleteOffer(offerId, type, price){
@@ -162,6 +188,14 @@ class Offer {
 
     getType(){
         this._type;
+    }
+
+    getProperties(){
+
+    }
+
+    updateProperties(properties){
+        
     }
 }
 

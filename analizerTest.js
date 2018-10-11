@@ -405,6 +405,31 @@ class AnalizerTest {
 		}
 	}
 
+	testGetUserData(){
+		let analizer = new Analizer();
+		let result = true;
+
+		analizer.addUser(/*loginServiceId*/ 17);
+
+		let userData = analizer.getUserData(0);
+
+		let original = {
+			userId:0,
+			loginServiceId:17
+		}
+
+		if( JSON.stringify(original) !== JSON.stringify(userData) ){
+			result = false;
+			console.log("userData differ ");
+			console.log("original :", original);
+			console.log("found : ", userData);
+		}
+
+		if(result===false){
+			console.log("testGetUserId(): ", result);
+		}
+	}
+
 
 	runAllTests() {
 		console.log("AnalizerTest started ...");
@@ -418,6 +443,7 @@ class AnalizerTest {
 	    this.testGetUserBuyListWithDeletes();
 	    this.testGetCatalogue();
 	    this.testEmptinessAtBeginning();
+	    this.testGetUserData();
 	    console.log("AnalizerTest ended ...\n");
 	}
 
