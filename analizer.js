@@ -158,43 +158,4 @@ class Analizer {
 
 
 
-class AnalizerPersitance {
-    
-
-    addUser(properties){
-
-    }
-
-    addVideoGame(properties){
-
-    }
-
-    addOffer(properties){
-
-    }
-
-    updateUser(properties){
-
-    }
-
-    updateOffer(properties){
-
-    }
-
-    deleteUser(userId){
-
-    }
-
-    deleteVideoGame(videoGameId){
-
-    }
-
-    deleteOffer(offerId){
-
-    }
-
-
-}
-
-
 exports.Analizer = Analizer;

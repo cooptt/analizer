@@ -121,14 +121,14 @@ class OfferTest {
 		let offer = new Offer(
 			/*offerId*/ 74,
 			/*userId*/ 43,
-			/*videoGameId*/, 3,
-			/*price*/,4.58,
-			/*type*/,0 );
+			/*videoGameId*/ 3,
+			/*price*/4.58,
+			/*type*/0 );
 		let offerProperties = offer.getProperties();
-		let orignal = {
+		let original = {
 			offerId:74,
 			userId:43,
-			videoGame:3,
+			videoGameId:3,
 			price:4.58,
 			type:0
 		}
